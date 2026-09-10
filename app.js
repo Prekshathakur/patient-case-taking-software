@@ -72,8 +72,9 @@ if (SpeechRecognition) {
 // INITIALIZATION ON DOM CONTENT LOADED
 // ----------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Load Saved Theme
+    // 1. Load Saved Theme & Language
     loadSavedTheme();
+    loadSavedLanguage();
 
     // 2. Initial Category and Body Zone Selection
     selectCategory('respiratory', true);
@@ -193,14 +194,38 @@ function handleLogin(e) {
     const role = roleEl ? roleEl.value : 'kiosk';
     const pass = passEl ? passEl.value : '';
 
+    let users = [];
+    try {
+        users = JSON.parse(localStorage.getItem('ayur_users') || '[]');
+        if (!Array.isArray(users)) users = [];
+    } catch(e) { users = []; }
+
+    // Check if this account was created in signup
+    const registeredUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (registeredUser) {
+        // STRICT PASSWORD VALIDATION for registered users!
+        if (registeredUser.pass !== pass) {
+            alert('❌ Incorrect Password! Please enter the exact password you created during registration.');
+            if (passEl) { passEl.value = ''; passEl.focus(); }
+            return;
+        }
+        // Password verified successfully
+        completeSuccessfulLogin({
+            name: registeredUser.name,
+            email: registeredUser.email,
+            role: registeredUser.role || role
+        });
+        return;
+    }
+
+    // Unregistered accounts or default demo logins:
     const name = email.split('@')[0] ? (email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1)) : 'Patient User';
 
-    // If logging in as Doctor or Admin, require password verification
     if (role === 'doctor') {
         if (pass === 'moment123' || pass === '1234') {
             completeSuccessfulLogin({ name: 'Dr. ' + name, email, role });
         } else {
-            // Hide auth screen and trigger password lock modal
             appState.pendingQuickUser = { name: 'Dr. ' + name, email, role };
             attemptDoctorAccess('doctor', 'login');
         }
@@ -212,8 +237,18 @@ function handleLogin(e) {
             attemptDoctorAccess('admin', 'login');
         }
     } else {
-        // Patient / Kiosk login
-        completeSuccessfulLogin({ name: name || 'Ramesh Kumar', email, role: 'kiosk' });
+        // Patient / Kiosk login for demo account
+        if (email.toLowerCase() === 'patient@hospital.com') {
+            if (pass !== '1234' && pass !== 'patient123') {
+                alert('❌ Incorrect Demo Password! Use "1234" for the demo account or click "Create Account" to register.');
+                if (passEl) { passEl.value = ''; passEl.focus(); }
+                return;
+            }
+            completeSuccessfulLogin({ name: 'Ramesh Kumar', email, role: 'kiosk' });
+        } else {
+            // Unregistered user entered unknown email
+            alert(`❌ No account found for "${email}". Please click the "Create Account" tab to register your password first.`);
+        }
     }
 }
 
@@ -618,50 +653,44 @@ function updatePainScaleDisplay() {
 function renderAdaptiveQuestions(cat) {
     const container = document.getElementById('adaptive-question-container');
     if (!container) return;
-    let html = '';
+    const t = appTranslations[appState.currentLang] || appTranslations['en-US'];
+    const q = (t.questions && t.questions[cat]) ? t.questions[cat] : (appTranslations['en-US'].questions[cat]);
 
-    if (cat === 'respiratory') {
-        html = `
-            <div class="p-3 bg-slate-50 rounded-xl border border-teal-200 text-xs space-y-1.5">
-                <label class="font-bold text-teal-800 block">🧠 Sputum & Cough Type (Kasa Examination)</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-teal-50"><input type="radio" name="rq1" checked onclick="updateKasaType('Kapha')"><span>White / Thick Sputum (Kaphaja)</span></label>
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-teal-50"><input type="radio" name="rq1" onclick="updateKasaType('Vata')"><span>Dry Hacking Cough (Vataja)</span></label>
-                </div>
-            </div>
-        `;
-    } else if (cat === 'joint') {
-        html = `
-            <div class="p-3 bg-slate-50 rounded-xl border border-amber-200 text-xs space-y-1.5">
-                <label class="font-bold text-amber-800 block">🧠 Joint Stiffness & Agni (Amavata Examination)</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-amber-50"><input type="radio" name="jq1" checked><span>Morning Stiffness > 1 Hour</span></label>
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-amber-50"><input type="radio" name="jq1"><span>Swelling & Heat in Joints</span></label>
-                </div>
-            </div>
-        `;
+    let borderCol = 'border-teal-200';
+    let textCol = 'text-teal-800';
+    let hoverBg = 'hover:bg-teal-50';
+    let inputRadio = `<input type="radio" name="rq1" checked onclick="updateKasaType('Kapha')">`;
+    let inputRadio2 = `<input type="radio" name="rq1" onclick="updateKasaType('Vata')">`;
+
+    if (cat === 'joint') {
+        borderCol = 'border-amber-200';
+        textCol = 'text-amber-800';
+        hoverBg = 'hover:bg-amber-50';
+        inputRadio = `<input type="radio" name="jq1" checked>`;
+        inputRadio2 = `<input type="radio" name="jq1">`;
     } else if (cat === 'digestive') {
-        html = `
-            <div class="p-3 bg-slate-50 rounded-xl border border-sky-200 text-xs space-y-1.5">
-                <label class="font-bold text-sky-800 block">🧠 Digestion & Acid Reflux (Amlapitta Examination)</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-sky-50"><input type="radio" name="dq1" checked><span>Chest / Throat Burning after food</span></label>
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-sky-50"><input type="radio" name="dq1"><span>Loss of Appetite & Sour Belching</span></label>
-                </div>
-            </div>
-        `;
-    } else {
-        html = `
-            <div class="p-3 bg-slate-50 rounded-xl border border-rose-200 text-xs space-y-1.5">
-                <label class="font-bold text-rose-800 block">🧠 Fever Pattern & Chills (Jwara Examination)</label>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-rose-50"><input type="radio" name="fq1" checked><span>Continuous High Temperature</span></label>
-                    <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg hover:bg-rose-50"><input type="radio" name="fq1"><span>Intermittent Evening Spikes with Chills</span></label>
-                </div>
-            </div>
-        `;
+        borderCol = 'border-sky-200';
+        textCol = 'text-sky-800';
+        hoverBg = 'hover:bg-sky-50';
+        inputRadio = `<input type="radio" name="dq1" checked>`;
+        inputRadio2 = `<input type="radio" name="dq1">`;
+    } else if (cat === 'fever') {
+        borderCol = 'border-rose-200';
+        textCol = 'text-rose-800';
+        hoverBg = 'hover:bg-rose-50';
+        inputRadio = `<input type="radio" name="fq1" checked>`;
+        inputRadio2 = `<input type="radio" name="fq1">`;
     }
-    container.innerHTML = html;
+
+    container.innerHTML = `
+        <div class="p-3 bg-slate-50 rounded-xl border ${borderCol} text-xs space-y-1.5">
+            <label class="font-bold ${textCol} block">${q.title}</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg ${hoverBg}">${inputRadio}<span>${q.opt1}</span></label>
+                <label class="flex items-center space-x-2 cursor-pointer font-medium p-1.5 rounded-lg ${hoverBg}">${inputRadio2}<span>${q.opt2}</span></label>
+            </div>
+        </div>
+    `;
 }
 
 function updateKasaType(type) {

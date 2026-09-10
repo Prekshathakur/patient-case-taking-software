@@ -482,17 +482,18 @@
                 
                 <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <span class="px-2.5 py-1 text-xs font-bold bg-teal-100 text-teal-800 border border-teal-200 rounded-md">Self-Service Pre-Consultation Kiosk</span>
-                        <h1 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">Patient Intake Assistant</h1>
-                        <p class="text-slate-500 text-xs mt-0.5">Fill in your symptoms in 2 minutes before meeting the doctor.</p>
+                        <span id="kiosk-badge-title" class="px-2.5 py-1 text-xs font-bold bg-teal-100 text-teal-800 border border-teal-200 rounded-md">Self-Service Pre-Consultation Kiosk</span>
+                        <h1 id="kiosk-main-title" class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">Patient Intake Assistant</h1>
+                        <p id="kiosk-desc" class="text-slate-500 text-xs mt-0.5">Fill in your symptoms in 2 minutes before meeting the doctor.</p>
                     </div>
 
                     <!-- Language & Voice Assistant -->
                     <div class="flex items-center space-x-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
                         <i class="fa-solid fa-language text-teal-700 ml-1"></i>
-                        <select id="kiosk-lang" onchange="changeLanguage()" class="bg-white text-slate-800 text-xs font-semibold rounded-lg px-2.5 py-1.5 border border-slate-300 focus:outline-none">
+                        <select id="kiosk-lang" onchange="changeLanguage()" class="bg-white text-slate-800 text-xs font-semibold rounded-lg px-2.5 py-1.5 border border-slate-300 focus:outline-none cursor-pointer">
                             <option value="en-US">English</option>
                             <option value="hi-IN" selected>हिंदी (Hindi)</option>
+                            <option value="te-IN">తెలుగు (Telugu)</option>
                             <option value="mr-IN">मराठी (Marathi)</option>
                             <option value="ta-IN">தமிழ் (Tamil)</option>
                         </select>
@@ -513,15 +514,15 @@
                         <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
                             <h3 class="text-xs font-bold text-teal-800 uppercase tracking-wider flex items-center space-x-2 border-b border-slate-100 pb-2">
                                 <i class="fa-solid fa-user-pen text-base"></i>
-                                <span>1. Patient Details & Health Vitals</span>
+                                <span id="sec1-title">1. Patient Details & Health Vitals</span>
                             </h3>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
+                                    <label id="lbl-name" class="block font-bold text-slate-700 mb-1">Full Name *</label>
                                     <input type="text" id="patient-name" value="Ramesh Kumar" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-900 font-semibold focus:border-teal-600 focus:outline-none">
                                 </div>
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">Age & Gender *</label>
+                                    <label id="lbl-age-gender" class="block font-bold text-slate-700 mb-1">Age & Gender *</label>
                                     <div class="flex space-x-1.5">
                                         <input type="number" id="patient-age" value="45" min="1" max="120" class="w-16 bg-slate-50 border border-slate-300 rounded-xl px-2 py-2 text-slate-900 font-semibold focus:border-teal-600 focus:outline-none">
                                         <select id="patient-gender" class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-2 py-2 text-slate-900 font-semibold focus:border-teal-600 focus:outline-none">
@@ -532,17 +533,17 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block font-bold text-slate-700 mb-1">Mobile / ABHA ID</label>
+                                    <label id="lbl-phone" class="block font-bold text-slate-700 mb-1">Mobile / ABHA ID</label>
                                     <input type="text" id="patient-phone" value="+91 98765 43210" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-900 font-semibold focus:border-teal-600 focus:outline-none">
                                 </div>
                             </div>
 
                             <!-- Vitals Strip -->
                             <div class="p-3 bg-teal-50/70 rounded-xl border border-teal-200 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                                <div><span class="text-slate-600 block font-semibold text-[11px]">BP (mmHg)</span><input type="text" id="vital-bp" value="138/88" class="bg-transparent font-extrabold text-slate-900 w-full focus:outline-none"></div>
-                                <div><span class="text-slate-600 block font-semibold text-[11px]">Pulse Rate (bpm)</span><input type="number" id="vital-pulse" value="78" class="bg-transparent font-extrabold text-slate-900 w-full focus:outline-none"></div>
-                                <div><span class="text-slate-600 block font-semibold text-[11px]">SpO2 Level (%)</span><input type="number" id="vital-spo2" value="97" class="bg-transparent font-extrabold text-teal-800 w-full focus:outline-none"></div>
-                                <div><span class="text-slate-600 block font-semibold text-[11px]">Body Temp (°F)</span><input type="text" id="vital-temp" value="98.6" class="bg-transparent font-extrabold text-slate-900 w-full focus:outline-none"></div>
+                                <div><span id="lbl-vital-bp" class="text-slate-600 block font-semibold text-[11px]">BP (mmHg)</span><input type="text" id="vital-bp" value="138/88" class="bg-transparent font-extrabold text-slate-900 w-full focus:outline-none"></div>
+                                <div><span id="lbl-vital-pulse" class="text-slate-600 block font-semibold text-[11px]">Pulse Rate (bpm)</span><input type="number" id="vital-pulse" value="78" class="bg-transparent font-extrabold text-slate-900 w-full focus:outline-none"></div>
+                                <div><span id="lbl-vital-spo2" class="text-slate-600 block font-semibold text-[11px]">SpO2 Level (%)</span><input type="number" id="vital-spo2" value="97" class="bg-transparent font-extrabold text-teal-800 w-full focus:outline-none"></div>
+                                <div><span id="lbl-vital-temp" class="text-slate-600 block font-semibold text-[11px]">Body Temp (°F)</span><input type="text" id="vital-temp" value="98.6" class="bg-transparent font-extrabold text-slate-900 w-full focus:outline-none"></div>
                             </div>
                         </div>
 
@@ -550,7 +551,7 @@
                         <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
                             <h3 class="text-xs font-bold text-teal-800 uppercase tracking-wider flex items-center space-x-2 border-b border-slate-100 pb-2">
                                 <i class="fa-solid fa-microphone text-base"></i>
-                                <span>2. Voice Speech Intake & Primary Symptoms</span>
+                                <span id="sec2-title">2. Voice Speech Intake & Primary Symptoms</span>
                             </h3>
 
                             <div class="p-3.5 bg-slate-50 rounded-xl border border-teal-200 flex items-center justify-between">
@@ -568,42 +569,42 @@
 
                             <!-- Primary Symptoms Category Boxes (Interactive with Dynamic Highlight & Sync) -->
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-2">Select Primary Symptom Category:</label>
+                                <label id="lbl-cat-select" class="block text-xs font-bold text-slate-700 mb-2">Select Primary Symptom Category:</label>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                                     
                                     <button type="button" id="cat-btn-respiratory" onclick="selectCategory('respiratory')" class="cat-btn relative p-3 bg-slate-50 border border-slate-200 rounded-xl text-left hover:bg-teal-50 font-bold focus:outline-none">
                                         <span class="cat-check hidden absolute top-2 right-2 text-teal-700 text-xs"><i class="fa-solid fa-circle-check"></i></span>
                                         <i class="fa-solid fa-lungs text-teal-700 text-lg mb-1 block"></i>
-                                        <span class="text-slate-900 block font-bold">Cough / Cold</span>
-                                        <span class="text-[10px] text-slate-500 font-normal block">(Kasa / Shwasa)</span>
+                                        <span id="cat-title-respiratory" class="text-slate-900 block font-bold">Cough / Cold</span>
+                                        <span id="cat-sub-respiratory" class="text-[10px] text-slate-500 font-normal block">(Kasa / Shwasa)</span>
                                     </button>
 
                                     <button type="button" id="cat-btn-joint" onclick="selectCategory('joint')" class="cat-btn relative p-3 bg-slate-50 border border-slate-200 rounded-xl text-left hover:bg-teal-50 font-bold focus:outline-none">
                                         <span class="cat-check hidden absolute top-2 right-2 text-teal-700 text-xs"><i class="fa-solid fa-circle-check"></i></span>
                                         <i class="fa-solid fa-bone text-amber-600 text-lg mb-1 block"></i>
-                                        <span class="text-slate-900 block font-bold">Joint Pain</span>
-                                        <span class="text-[10px] text-slate-500 font-normal block">(Amavata)</span>
+                                        <span id="cat-title-joint" class="text-slate-900 block font-bold">Joint Pain</span>
+                                        <span id="cat-sub-joint" class="text-[10px] text-slate-500 font-normal block">(Amavata)</span>
                                     </button>
 
                                     <button type="button" id="cat-btn-digestive" onclick="selectCategory('digestive')" class="cat-btn relative p-3 bg-slate-50 border border-slate-200 rounded-xl text-left hover:bg-teal-50 font-bold focus:outline-none">
                                         <span class="cat-check hidden absolute top-2 right-2 text-teal-700 text-xs"><i class="fa-solid fa-circle-check"></i></span>
                                         <i class="fa-solid fa-capsules text-sky-600 text-lg mb-1 block"></i>
-                                        <span class="text-slate-900 block font-bold">Stomach / Gas</span>
-                                        <span class="text-[10px] text-slate-500 font-normal block">(Agnimandya)</span>
+                                        <span id="cat-title-digestive" class="text-slate-900 block font-bold">Stomach / Gas</span>
+                                        <span id="cat-sub-digestive" class="text-[10px] text-slate-500 font-normal block">(Agnimandya)</span>
                                     </button>
 
                                     <button type="button" id="cat-btn-fever" onclick="selectCategory('fever')" class="cat-btn relative p-3 bg-slate-50 border border-slate-200 rounded-xl text-left hover:bg-teal-50 font-bold focus:outline-none">
                                         <span class="cat-check hidden absolute top-2 right-2 text-teal-700 text-xs"><i class="fa-solid fa-circle-check"></i></span>
                                         <i class="fa-solid fa-temperature-high text-rose-600 text-lg mb-1 block"></i>
-                                        <span class="text-slate-900 block font-bold">Fever / Head</span>
-                                        <span class="text-[10px] text-slate-500 font-normal block">(Jwara / Shiro)</span>
+                                        <span id="cat-title-fever" class="text-slate-900 block font-bold">Fever / Head</span>
+                                        <span id="cat-sub-fever" class="text-[10px] text-slate-500 font-normal block">(Jwara / Shiro)</span>
                                     </button>
 
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Chief Complaint Description (Voice Transcribed / Typed)</label>
+                                <label id="lbl-chief-desc" class="block text-xs font-bold text-slate-700 mb-1">Chief Complaint Description (Voice Transcribed / Typed)</label>
                                 <textarea id="chief-complaint-text" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-slate-900 font-medium focus:border-teal-600 focus:outline-none transition-all">Cough with whitish sputum for 3 days, mild fever (99.8°F), loss of appetite, aggravated during night time.</textarea>
                             </div>
                         </div>
@@ -612,14 +613,14 @@
                         <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
                             <h3 class="text-xs font-bold text-teal-800 uppercase tracking-wider flex items-center space-x-2 border-b border-slate-100 pb-2">
                                 <i class="fa-solid fa-clipboard-question text-base"></i>
-                                <span>3. Specific Questions & Body Assessment</span>
+                                <span id="sec3-title">3. Specific Questions & Body Assessment</span>
                             </h3>
 
                             <div id="adaptive-question-container" class="space-y-3"></div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
                                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                                    <label class="font-bold text-amber-700 block mb-1">🔥 Digestion Quality <span class="text-[10px] font-normal text-slate-500">(Agni)</span></label>
+                                    <label id="lbl-ayush-agni" class="font-bold text-amber-700 block mb-1">🔥 Digestion Quality <span class="text-[10px] font-normal text-slate-500">(Agni)</span></label>
                                     <select id="ayush-agni" onchange="recalculatePrakriti()" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 font-semibold focus:outline-none">
                                         <option value="Manda (Sluggish/Low)" selected>Low / Sluggish Digestion</option>
                                         <option value="Visham (Irregular)">Irregular Digestion</option>
@@ -627,7 +628,7 @@
                                     </select>
                                 </div>
                                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                                    <label class="font-bold text-teal-800 block mb-1">💩 Bowel Habits <span class="text-[10px] font-normal text-slate-500">(Koshtha)</span></label>
+                                    <label id="lbl-ayush-koshtha" class="font-bold text-teal-800 block mb-1">💩 Bowel Habits <span class="text-[10px] font-normal text-slate-500">(Koshtha)</span></label>
                                     <select id="ayush-koshtha" onchange="recalculatePrakriti()" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 font-semibold focus:outline-none">
                                         <option value="Madhyama (Normal)" selected>Normal Daily Bowel</option>
                                         <option value="Kroora (Constipated)">Hard / Constipated</option>
@@ -635,7 +636,7 @@
                                     </select>
                                 </div>
                                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                                    <label class="font-bold text-sky-800 block mb-1">😴 Sleep & Season <span class="text-[10px] font-normal text-slate-500">(Rutu)</span></label>
+                                    <label id="lbl-ayush-sleep" class="font-bold text-sky-800 block mb-1">😴 Sleep & Season <span class="text-[10px] font-normal text-slate-500">(Rutu)</span></label>
                                     <select id="ayush-sleep" onchange="recalculatePrakriti()" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 font-semibold focus:outline-none">
                                         <option value="Disturbed / Night Cough" selected>Disturbed / Night Cough</option>
                                         <option value="Normal 7-8 Hours">Normal 7-8 Hours</option>
@@ -647,12 +648,12 @@
                         <!-- Save & Generate QR -->
                         <div class="flex flex-col sm:flex-row items-center justify-between p-4 bg-white rounded-2xl border border-teal-200 shadow-sm gap-3">
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Save Intake & Generate Token</h4>
-                                <p class="text-[11px] text-slate-500">Saves your case record to the OPD database for instant doctor review.</p>
+                                <h4 id="kiosk-save-head" class="font-bold text-slate-900 text-sm">Save Intake & Generate Token</h4>
+                                <p id="kiosk-save-sub" class="text-[11px] text-slate-500">Saves your case record to the OPD database for instant doctor review.</p>
                             </div>
                             <button onclick="submitPatientKiosk()" class="w-full sm:w-auto px-6 py-2.5 bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs rounded-xl shadow flex items-center justify-center space-x-2 transition-all shrink-0">
                                 <i class="fa-solid fa-qrcode"></i>
-                                <span>Save & Create QR Token</span>
+                                <span id="kiosk-save-btn-txt">Save & Create QR Token</span>
                             </button>
                         </div>
 
@@ -664,8 +665,8 @@
                         <!-- Interactive Body Map with Dynamic SVG Highlights -->
                         <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-                                <h4 class="font-bold text-xs uppercase tracking-wider text-teal-800">Interactive Body Map</h4>
-                                <span class="text-[10px] text-slate-400">Tap zone to select</span>
+                                <h4 id="lbl-body-map" class="font-bold text-xs uppercase tracking-wider text-teal-800">Interactive Body Map</h4>
+                                <span id="lbl-tap-zone" class="text-[10px] text-slate-400">Tap zone to select</span>
                             </div>
 
                             <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 flex flex-col items-center justify-center relative">
@@ -699,7 +700,7 @@
 
                             <div class="space-y-1.5 text-xs">
                                 <div class="flex justify-between items-center">
-                                    <label class="text-slate-700 font-bold">Pain Scale (VAS 1-10)</label>
+                                    <label id="lbl-pain-scale" class="text-slate-700 font-bold">Pain Scale (VAS 1-10)</label>
                                     <span id="pain-scale-val" class="font-bold text-amber-700 text-[11px]">Level 4 - Moderate</span>
                                 </div>
                                 <input type="range" id="pain-scale-slider" min="1" max="10" value="4" oninput="updatePainScaleDisplay()" class="w-full accent-teal-700">
@@ -709,7 +710,7 @@
                         <!-- Tridosha Balance Radar Chart -->
                         <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-                                <h4 class="font-bold text-xs uppercase tracking-wider text-amber-700">Body Type Balance (Tridosha)</h4>
+                                <h4 id="lbl-tridosha-title" class="font-bold text-xs uppercase tracking-wider text-amber-700">Body Type Balance (Tridosha)</h4>
                                 <span class="text-[10px] text-slate-400">Prakriti</span>
                             </div>
                             <div class="h-44 relative">
@@ -949,6 +950,8 @@
                     <button onclick="window.print()" class="px-4 py-1.5 bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold rounded-lg shadow transition-all flex items-center space-x-1.5"><i class="fa-solid fa-print"></i><span>Print Slip</span></button>
                 </div>
             </div>
+        </div>
+
         <!-- User Login History & Excel Storage Modal (Independent from Admin) -->
         <div id="login-details-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
             <div class="bg-white text-slate-900 max-w-3xl w-full rounded-3xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto font-sans my-auto space-y-4">

@@ -220,7 +220,8 @@ body.theme-dark #sidebar-drawer {
 #password-lock-modal:not(.hidden),
 #patient-qr-modal:not(.hidden),
 #qr-scanner-modal:not(.hidden),
-#print-modal:not(.hidden) {
+#print-modal:not(.hidden),
+#login-details-modal:not(.hidden) {
     display: flex !important;
 }
 
