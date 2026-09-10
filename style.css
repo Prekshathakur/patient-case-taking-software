@@ -1,0 +1,99 @@
+/* Light Pastel Clinical & Hospital Styling */
+.hidden {
+    display: none !important;
+}
+
+.view-section {
+    width: 100%;
+}
+
+.view-section:not(.hidden) {
+    display: block !important;
+}
+
+/* Base Display Fallbacks */
+#auth-screen:not(.hidden),
+#password-lock-modal:not(.hidden),
+#patient-qr-modal:not(.hidden),
+#qr-scanner-modal:not(.hidden),
+#print-modal:not(.hidden) {
+    display: flex !important;
+}
+
+.body-zone {
+    transition: all 0.2s ease-in-out;
+}
+
+.body-zone:hover {
+    fill: rgba(13, 148, 136, 0.4) !important;
+    stroke: #0d9488 !important;
+    cursor: pointer;
+}
+
+/* Sidebar Drawer Slide Animation */
+#sidebar-drawer.open {
+    transform: translateX(0) !important;
+}
+
+/* Scanner Laser Animation */
+@keyframes laserScan {
+    0% { top: 0%; opacity: 0.8; }
+    50% { top: 90%; opacity: 1; }
+    100% { top: 0%; opacity: 0.8; }
+}
+
+.animate-laser {
+    animation: laserScan 2s infinite ease-in-out;
+}
+
+/* Theme Switcher Styles */
+body.theme-emerald {
+    background: linear-gradient(to bottom right, rgba(236, 253, 245, 0.7), rgba(248, 250, 252, 1), rgba(209, 250, 229, 0.6)) !important;
+}
+
+body.theme-sky {
+    background: linear-gradient(to bottom right, rgba(240, 249, 255, 0.7), rgba(248, 250, 252, 1), rgba(224, 242, 254, 0.6)) !important;
+}
+
+body.theme-dark {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+body.theme-dark .bg-white {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.theme-dark .bg-slate-50 {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.theme-dark .text-slate-900,
+body.theme-dark .text-slate-800,
+body.theme-dark .text-slate-700 {
+    color: #f1f5f9 !important;
+}
+
+/* Custom Clean Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0d9488;
+}
+
