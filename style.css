@@ -1,4 +1,209 @@
-/* Light Pastel Clinical & Hospital Styling */
+/* ==========================================================
+   AyurAyush AI - Core Clinical Stylesheet
+   Full Multi-Theming, High-Contrast Dark Mode & Animations
+   ========================================================== */
+
+:root {
+    --primary: #0f766e;
+    --primary-hover: #115e59;
+    --primary-light: #ccfbf1;
+    --primary-lightest: #f0fdfa;
+    --primary-text: #0f766e;
+    --primary-border: #99f6e4;
+    --accent-glow: rgba(15, 118, 110, 0.3);
+    --body-bg: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #ecfdf5 100%);
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --text-heading: #0f172a;
+    --text-body: #334155;
+    --text-muted: #64748b;
+    --input-bg: #f8fafc;
+    --input-border: #cbd5e1;
+    --chart-accent: rgba(15, 118, 110, 0.3);
+    --chart-border: #0f766e;
+}
+
+/* 1. THEME: HERBAL EMERALD */
+body.theme-emerald {
+    --primary: #059669;
+    --primary-hover: #047857;
+    --primary-light: #d1fae5;
+    --primary-lightest: #ecfdf5;
+    --primary-text: #065f46;
+    --primary-border: #a7f3d0;
+    --accent-glow: rgba(5, 150, 105, 0.3);
+    --body-bg: linear-gradient(135deg, #ecfdf5 0%, #f8fafc 50%, #d1fae5 100%);
+    --card-bg: #ffffff;
+    --card-border: #d1d5db;
+    --text-heading: #064e3b;
+    --chart-accent: rgba(5, 150, 105, 0.3);
+    --chart-border: #059669;
+}
+
+/* 2. THEME: OCEAN SKY */
+body.theme-sky {
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
+    --primary-light: #e0f2fe;
+    --primary-lightest: #f0f9ff;
+    --primary-text: #075985;
+    --primary-border: #bae6fd;
+    --accent-glow: rgba(2, 132, 199, 0.3);
+    --body-bg: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #e0f2fe 100%);
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --text-heading: #0c4a6e;
+    --chart-accent: rgba(2, 132, 199, 0.3);
+    --chart-border: #0284c7;
+}
+
+/* 3. THEME: AYUSH AMBER / OCHRE */
+body.theme-amber {
+    --primary: #d97706;
+    --primary-hover: #b45309;
+    --primary-light: #fef3c7;
+    --primary-lightest: #fffbeb;
+    --primary-text: #92400e;
+    --primary-border: #fde68a;
+    --accent-glow: rgba(217, 119, 6, 0.3);
+    --body-bg: linear-gradient(135deg, #fffbeb 0%, #fef8ee 50%, #fef3c7 100%);
+    --card-bg: #ffffff;
+    --card-border: #fed7aa;
+    --text-heading: #78350f;
+    --chart-accent: rgba(217, 119, 6, 0.3);
+    --chart-border: #d97706;
+}
+
+/* 4. THEME: DARK GLASS */
+body.theme-dark {
+    --primary: #14b8a6;
+    --primary-hover: #2dd4bf;
+    --primary-light: rgba(20, 184, 166, 0.2);
+    --primary-lightest: #0f172a;
+    --primary-text: #5eead4;
+    --primary-border: rgba(20, 184, 166, 0.4);
+    --accent-glow: rgba(20, 184, 166, 0.4);
+    --body-bg: linear-gradient(135deg, #090d16 0%, #0f172a 60%, #111e33 100%);
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --text-heading: #f8fafc;
+    --text-body: #cbd5e1;
+    --text-muted: #94a3b8;
+    --input-bg: #0f172a;
+    --input-border: #475569;
+    --chart-accent: rgba(20, 184, 166, 0.35);
+    --chart-border: #14b8a6;
+}
+
+/* Apply Dynamic Body Background */
+#body-root {
+    background: var(--body-bg) !important;
+    color: var(--text-body) !important;
+}
+
+/* Dynamic Primary Backgrounds & Buttons */
+.bg-teal-700, 
+.bg-teal-800,
+.theme-btn-primary {
+    background-color: var(--primary) !important;
+}
+
+.hover\:bg-teal-800:hover,
+.hover\:bg-teal-900:hover {
+    background-color: var(--primary-hover) !important;
+}
+
+/* Dynamic Light Badges & Containers */
+.bg-teal-100,
+.theme-badge-light {
+    background-color: var(--primary-light) !important;
+}
+
+.bg-teal-50,
+.bg-teal-50\/70,
+.theme-bg-lightest {
+    background-color: var(--primary-lightest) !important;
+}
+
+/* Dynamic Primary Text */
+.text-teal-700,
+.text-teal-800,
+.text-teal-900,
+.theme-text-primary {
+    color: var(--primary-text) !important;
+}
+
+/* Dynamic Borders */
+.border-teal-200,
+.border-teal-300,
+.border-teal-500,
+.border-teal-600,
+.theme-border-primary {
+    border-color: var(--primary-border) !important;
+}
+
+/* Dynamic Active Role Buttons */
+.role-btn.active-role {
+    background-color: var(--primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px var(--accent-glow) !important;
+}
+
+/* Dark Mode Overrides */
+body.theme-dark .bg-white {
+    background-color: var(--card-bg) !important;
+    border-color: var(--card-border) !important;
+    color: var(--text-heading) !important;
+}
+
+body.theme-dark .bg-slate-50,
+body.theme-dark .bg-slate-100 {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: var(--text-body) !important;
+}
+
+body.theme-dark input,
+body.theme-dark select,
+body.theme-dark textarea {
+    background-color: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+    color: #f8fafc !important;
+}
+
+body.theme-dark .text-slate-900,
+body.theme-dark .text-slate-800,
+body.theme-dark .text-slate-700 {
+    color: #f1f5f9 !important;
+}
+
+body.theme-dark .text-slate-600,
+body.theme-dark .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+body.theme-dark .border-slate-100,
+body.theme-dark .border-slate-200,
+body.theme-dark .border-slate-300 {
+    border-color: #334155 !important;
+}
+
+body.theme-dark .divide-slate-100 > * + *,
+body.theme-dark .divide-slate-200 > * + * {
+    border-color: #334155 !important;
+}
+
+body.theme-dark tr:hover {
+    background-color: rgba(30, 41, 59, 0.8) !important;
+}
+
+body.theme-dark #sidebar-drawer {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+/* Base Display Fallbacks */
 .hidden {
     display: none !important;
 }
@@ -11,7 +216,6 @@
     display: block !important;
 }
 
-/* Base Display Fallbacks */
 #auth-screen:not(.hidden),
 #password-lock-modal:not(.hidden),
 #patient-qr-modal:not(.hidden),
@@ -20,14 +224,47 @@
     display: flex !important;
 }
 
+/* Interactive SVG Body Map Styling */
 .body-zone {
-    transition: all 0.2s ease-in-out;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 }
 
 .body-zone:hover {
-    fill: rgba(13, 148, 136, 0.4) !important;
-    stroke: #0d9488 !important;
-    cursor: pointer;
+    fill: var(--primary-light) !important;
+    stroke: var(--primary) !important;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+.body-zone.zone-active {
+    fill: var(--primary) !important;
+    stroke: #ffffff !important;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 10px var(--accent-glow)) !important;
+    animation: pulseZone 2s infinite ease-in-out;
+}
+
+@keyframes pulseZone {
+    0% { filter: drop-shadow(0 0 4px var(--accent-glow)); }
+    50% { filter: drop-shadow(0 0 12px var(--accent-glow)); }
+    100% { filter: drop-shadow(0 0 4px var(--accent-glow)); }
+}
+
+/* Symptom Category Active Styling */
+.cat-btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.cat-btn:hover {
+    border-color: var(--primary-border);
+    transform: translateY(-1px);
+}
+
+.cat-btn.cat-btn-active {
+    border-color: var(--primary) !important;
+    background-color: var(--primary-lightest) !important;
+    box-shadow: 0 0 0 2px var(--primary-border), 0 4px 6px -1px var(--accent-glow) !important;
 }
 
 /* Sidebar Drawer Slide Animation */
@@ -46,36 +283,15 @@
     animation: laserScan 2s infinite ease-in-out;
 }
 
-/* Theme Switcher Styles */
-body.theme-emerald {
-    background: linear-gradient(to bottom right, rgba(236, 253, 245, 0.7), rgba(248, 250, 252, 1), rgba(209, 250, 229, 0.6)) !important;
+/* Theme Option Cards in Sidebar */
+.theme-select-card {
+    transition: all 0.2s ease;
 }
 
-body.theme-sky {
-    background: linear-gradient(to bottom right, rgba(240, 249, 255, 0.7), rgba(248, 250, 252, 1), rgba(224, 242, 254, 0.6)) !important;
-}
-
-body.theme-dark {
-    background: #0f172a !important;
-    color: #f8fafc !important;
-}
-
-body.theme-dark .bg-white {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    color: #f8fafc !important;
-}
-
-body.theme-dark .bg-slate-50 {
-    background-color: #0f172a !important;
-    border-color: #334155 !important;
-    color: #f8fafc !important;
-}
-
-body.theme-dark .text-slate-900,
-body.theme-dark .text-slate-800,
-body.theme-dark .text-slate-700 {
-    color: #f1f5f9 !important;
+.theme-select-card.active-theme {
+    ring: 2px;
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* Custom Clean Scrollbars */
@@ -85,7 +301,7 @@ body.theme-dark .text-slate-700 {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: rgba(241, 245, 249, 0.6);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -94,6 +310,23 @@ body.theme-dark .text-slate-700 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #0d9488;
+    background: var(--primary);
 }
 
+body.theme-dark ::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+body.theme-dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+/* Mobile Specific Tweaks */
+@media (max-width: 640px) {
+    .mobile-hide-text {
+        display: none !important;
+    }
+    .mobile-p-3 {
+        padding: 0.75rem !important;
+    }
+}
